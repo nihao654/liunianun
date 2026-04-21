@@ -1,0 +1,68 @@
+<view class="page-root">
+        <view class="home-back-wrap" bindtap="onBackTap" style="z-index: 999;">
+                <view class="home-back-arrow"></view>
+        </view>
+
+        <scroll-view class="page-scroll" scroll-y="true">
+                <view class="page-content">
+                        <view class="header-block">
+                                <text class="title">{{currentCountry}}·实用语句</text>
+                                <view class="sub-row">
+                                        <text class="subtitle">支持离线查看 | 应急语音播报</text>
+                                </view>
+                        </view>
+
+                        <view class="search-block" style="margin-bottom: 30rpx;">
+                                <view class="search-shell">
+                                        <text class="search-icon">⌕</text>
+                                        <input
+                                                        class="search-input"
+                                                        placeholder="输入关键词搜索..."
+                                                        bindinput="onSearchInput"
+                                                        value="{{searchKey}}"
+                                        />
+                                        <text wx:if="{{searchKey}}" class="clear-icon" bindtap="onClearSearch">×</text>
+                                </view>
+                        </view>
+
+                        <scroll-view class="tag-scroll" scroll-x="true">
+                                <view class="tag-row">
+                                        <block wx:for="{{categories}}" wx:key="*this">
+                                                <view class="tag-pill {{activeCategory === item ? 'active-pill' : ''}}"
+                                                            bindtap="onTagTap" data-tag="{{item}}">
+                                                        <text class="tag-text">{{item}}</text>
+                                                </view>
+                                        </block>
+                                </view>
+                        </scroll-view>
+
+                        <view class="feature-block" style="margin-top: 40rpx;">
+                                <block wx:for="{{displayList}}" wx:key="id">
+                                        <view class="emergency-card embassy"
+                                                    style="margin-bottom: 24rpx; align-items: flex-start; padding: 30rpx; position: relative;"
+                                                    bindtap="onPlayAudio">
+
+                                                <view style="display: flex; justify-content: space-between; width: 100%;">
+                                                        <text class="en-text" style="color: #65c79c; font-weight: bold;">[{{item.type}}]</text>
+                                                        <text style="font-size: 40rpx; color: #5f24b6;">🔊</text>
+                                                </view>
+
+                                                <text class="zh-text" style="font-size: 34rpx; margin-top: 12rpx; font-weight: bold;">{{item.cn}}</text>
+                                                <text class="en-text" style="font-size: 30rpx; color: #5f24b6; margin-top: 8rpx; font-weight: 500;">{{item.foreign}}</text>
+
+                                                <view wx:if="{{item.konger}}" style="margin-top: 12rpx; background: rgba(0,0,0,0.04); padding: 8rpx 16rpx; border-radius: 8rpx; display: inline-flex; align-items: center;">
+                                                        <text style="font-size: 24rpx; color: #888;">🗣️ 跟着念：</text>
+                                                        <text style="font-size: 26rpx; color: #e65100; font-weight: bold;">{{item.konger}}</text>
+                                                </view>
+                                        </view>
+                                </block>
+
+                                <view wx:if="{{displayList.length === 0}}" style="text-align: center; padding: 100rpx 0;">
+                                        <text style="color: #999; font-size: 28rpx;">没搜到相关内容哦~</text>
+                                </view>
+                        </view>
+
+                        <view style="height: 100rpx;"></view>
+                </view>
+        </scroll-view>
+</view>

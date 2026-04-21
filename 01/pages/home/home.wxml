@@ -1,0 +1,115 @@
+<view class="page-root">
+  <view class="home-back-wrap" bindtap="onHomeBackTap">
+    <view class="home-back-arrow"></view>
+  </view>
+
+  <scroll-view class="page-scroll" scroll-y="true" show-scrollbar="false" enhanced="true">
+    <view class="page-content">
+      <view class="header-block">
+        <text class="title">欢迎来到{{welcomeCountryZh}}</text>
+        <view class="sub-row">
+          <text class="pin-icon">📍</text>
+          <text class="subtitle">{{welcomeSubtitle}}</text>
+        </view>
+      </view>
+
+      <view class="search-block">
+        <view class="search-shell">
+          <text class="search-icon">⌕</text>
+          <text class="search-placeholder">例如：“游猎”...</text>
+          <view class="filter-btn" bindtap="onFilterTap">
+            <text class="filter-icon">☷</text>
+          </view>
+        </view>
+
+        <scroll-view class="tag-scroll" scroll-x="true" show-scrollbar="false">
+          <view class="tag-row">
+            <block wx:for="{{tags}}" wx:key="*this">
+              <view class="tag-pill" bindtap="onTagTap" data-tag="{{item}}">
+                <text class="tag-text">{{item}}</text>
+              </view>
+            </block>
+          </view>
+        </scroll-view>
+      </view>
+
+      <view class="safety-card" bindtap="onOpenSecurityGuide">
+        <view class="safety-header">
+          <text class="safety-title">旅行安全出行</text>
+          <text class="safety-more" bindtap="onMoreTap">更多 ></text>
+        </view>
+        <view class="safety-level-row">
+          <text class="safety-level">安全等级：中等风险</text>
+          <text class="shield-icon">🛡</text>
+        </view>
+        <text class="safety-text">外交部预警：请遵守当地法律法规，避免夜间单独出行</text>
+        <text class="safety-date">最近更新：2026年3月3日</text>
+      </view>
+
+      <view class="feature-block">
+        <text class="feature-title">功能专标</text>
+        <view class="feature-grid">
+          <block wx:for="{{features}}" wx:key="label">
+            <view
+              class="feature-item"
+              bindtap="onFeatureTap"
+              data-name="{{item.label}}"
+              data-theme-start="{{item.themeStart}}"
+              data-theme-end="{{item.themeEnd}}"
+            >
+              <view class="feature-icon-shell" style="background: {{item.bg}};">
+                <view wx:if="{{item.label === '防疫健康'}}" class="health-cross-mark">
+                  <view class="health-cross-fill">
+                    <view class="health-cross-h"></view>
+                    <view class="health-cross-v"></view>
+                  </view>
+                  <view class="health-cross-glint"></view>
+                </view>
+                <text wx:else class="feature-icon">{{item.icon}}</text>
+              </view>
+              <text class="feature-label">{{item.label}}</text>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <view class="emergency-row">
+        <view class="emergency-card embassy" bindtap="onEmergencyTap" data-type="embassy">
+          <view class="emergency-icon">🏛</view>
+          <text class="en-text">Call Embassy</text>
+          <text class="zh-text">致电大使馆</text>
+        </view>
+        <view class="emergency-card hotline" bindtap="onEmergencyTap" data-type="hotline">
+          <view class="emergency-icon">🚨</view>
+          <text class="en-text">Emergency Numbers</text>
+          <text class="zh-text">紧急电话</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="custom-tabbar">
+    <view class="tab-pill">
+      <view class="tab-item active" bindtap="onTabTap" data-tab="home">
+        <text class="tab-icon">🏠</text>
+        <text class="tab-text">首页</text>
+      </view>
+      <view class="tab-item" bindtap="onTabTap" data-tab="community">
+        <text class="tab-icon">💬</text>
+        <text class="tab-text">华人社区</text>
+      </view>
+      <view class="tab-item center-item" bindtap="onTabTap" data-tab="publish">
+        <view class="publish-btn"><text class="publish-plus">+</text></view>
+        <text class="publish-text">发布</text>
+      </view>
+      <view class="tab-item" bindtap="onTabTap" data-tab="message">
+        <text class="tab-icon">🗨</text>
+        <text class="tab-text">消息</text>
+      </view>
+      <view class="tab-item" bindtap="onTabTap" data-tab="profile">
+        <text class="tab-icon">👤</text>
+        <text class="tab-text">个人中心</text>
+      </view>
+    </view>
+  </view>
+</view>

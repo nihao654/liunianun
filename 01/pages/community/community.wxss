@@ -1,0 +1,6 @@
+/* D:/Code/proj/小程序/01/pages/community/community.wxss */
+@import "../../templates/tabbar.wxss";
+
+.container {
+    padding-top: 70px; /* Adjust based on tabbar height (50px) + safe area inset + potential shadow */
+}

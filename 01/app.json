@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/home",
+    "pages/home/health",
+    "pages/customs/customs",
+    "pages/security/security",
+    "pages/community/community",
+    "pages/publish/publish",
+    "pages/phrases/phrases",
+    "pages/labor/labor",
+    "pages/attractions/attractions",
+    "pages/recommend/recommend",
+    "pages/message/message",
+    "pages/profile/profile",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#f5f2eb",
+    "navigationBarTitleText": "非常行",
+    "navigationStyle": "custom"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#58c796",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "首页" },
+      { "pagePath": "pages/community/community", "text": "社区" },
+      { "pagePath": "pages/publish/publish", "text": "发布" },
+      { "pagePath": "pages/message/message", "text": "消息" },
+      { "pagePath": "pages/profile/profile", "text": "个人中心" }
+    ]
+  }
+}

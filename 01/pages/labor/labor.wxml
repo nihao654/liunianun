@@ -1,0 +1,40 @@
+<view class="page-root">
+        <view class="home-back-wrap" bindtap="onBackTap">
+                <view class="home-back-arrow"></view>
+        </view>
+
+        <scroll-view class="page-scroll" scroll-y="true">
+                <view class="page-content">
+                        <view class="header-block">
+                                <text class="title">{{currentCountry}}·劳务合规</text>
+                                <view class="sub-row">
+                                        <text class="pin-icon">⚖️</text>
+                                        <text class="subtitle">劳工法摘要与用工合规指南</text>
+                                </view>
+                        </view>
+
+                        <view class="labor-list">
+                                <block wx:for="{{policyList}}" wx:key="id">
+                                        <view class="safety-card" style="margin-bottom: 30rpx; background: {{item.level === '强制' ? 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)' : ''}}" bindtap="onPolicyTap" data-title="{{item.title}}">
+                                                <view class="safety-header">
+                                                        <text class="safety-title">{{item.title}}</text>
+                                                        <view class="tag-pill" style="background: rgba(255,255,255,0.2); padding: 4rpx 12rpx;">
+                                                                <text class="tag-text" style="color: #fff; font-size: 20rpx;">{{item.tag}}</text>
+                                                        </view>
+                                                </view>
+                                                <view class="safety-level-row">
+                                                        <text class="safety-level">重要性：{{item.level}}</text>
+                                                        <text class="shield-icon">📜</text>
+                                                </view>
+                                                <text class="safety-text">{{item.content}}</text>
+                                        </view>
+                                </block>
+                        </view>
+
+                        <view class="emergency-card hotline" style="margin-top: 40rpx;">
+                                <text class="zh-text">⚠️ 提示</text>
+                                <text class="en-text" style="text-align: center; padding: 0 20rpx;">非洲各国劳工政策变动频繁，请以当地官方最新公告为准。</text>
+                        </view>
+                </view>
+        </scroll-view>
+</view>

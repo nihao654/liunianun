@@ -1,0 +1,39 @@
+/* D:/Code/proj/小程序/01/pages/publish/publish.wxss */
+@import "../../templates/tabbar.wxss";
+
+.container {
+    min-height: 100vh;
+    background-color: #f8f8f8;
+}
+
+.publish-header-padding {
+    height: 70px; /* Adjust based on tabbar height (50px) + safe area inset + potential shadow */
+}
+
+.page-content {
+    padding: 20px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.publish-options {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.publish-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: none;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.sos-btn {
+    background-color: #dc3545; /* Red for SOS */
+}

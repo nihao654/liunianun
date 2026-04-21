@@ -1,0 +1,39 @@
+/* 01/pages/phrases/phrases.wxss */
+@import "../home/home.wxss";
+
+/* 分类选中的小修饰 */
+.active-pill {
+        background: #65c79c !important;
+}
+.active-pill .tag-text {
+        color: #ffffff !important;
+}
+
+/* 列表容器 */
+.phrase-list {
+        padding-bottom: 100rpx;
+}
+
+@import "../home/home.wxss";
+
+.search-input {
+        flex: 1;
+        height: 70rpx;
+        font-size: 28rpx;
+        padding: 0 20rpx;
+}
+
+.clear-icon {
+        font-size: 40rpx;
+        color: #ccc;
+        padding: 0 20rpx;
+        z-index: 10;
+}
+
+.active-pill {
+        background: #7949c6 !important;
+}
+
+.active-pill .tag-text {
+        color: #fff !important;
+}

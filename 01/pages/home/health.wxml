@@ -1,0 +1,86 @@
+<view class="health-page">
+  <view class="aurora-layer" aria-hidden="true">
+    <view class="aurora-blob blob-top-left"></view>
+    <view class="aurora-blob blob-bottom-right"></view>
+  </view>
+
+  <view class="custom-nav">
+    <view class="nav-back-wrap" bindtap="onGoBack">
+      <view class="nav-back-arrow"></view>
+    </view>
+    <text class="nav-title">防疫健康（刚果金）</text>
+    <view class="nav-space"></view>
+  </view>
+
+  <view class="ticker-wrap">
+    <view class="ticker-track">
+      <text class="ticker-text">{{tickerText}}</text>
+      <text class="ticker-text">{{tickerText}}</text>
+    </view>
+    <view class="ticker-fade left"></view>
+    <view class="ticker-fade right"></view>
+  </view>
+
+  <scroll-view class="content-scroll" scroll-y="true" show-scrollbar="false">
+    <view class="content-wrap">
+      <view class="floating-card card-top">
+        <view class="must-tag">入境必看</view>
+        <view class="title-row">
+          <text class="title-icon">🛂</text>
+          <text class="must-title"><text class="must-highlight">强制要求</text>：必须携带黄热病疫苗接种证书（小黄本）</text>
+        </view>
+        <text class="must-desc">建议将纸质原件与电子扫描件同时准备；边检抽查频率高，缺失可能导致拒绝入境或隔离观察。</text>
+      </view>
+
+      <view class="floating-card card-mid">
+        <view class="title-row">
+          <text class="title-icon">🏥</text>
+          <text class="card-title">华人集中地主要医院</text>
+        </view>
+        <view class="hospital-grid">
+          <block wx:for="{{hospitals}}" wx:key="name">
+            <view class="hospital-item">
+              <view class="hospital-left">
+                <text class="hospital-name">{{item.name}}</text>
+                <text class="hospital-meta">地址：{{item.address}}</text>
+                <text class="hospital-meta">电话：{{item.phone}}</text>
+              </view>
+              <view class="hospital-right">
+                <view class="call-btn" bindtap="onCallHospital" data-phone="{{item.phone}}">拨打</view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <view class="floating-card card-bottom">
+        <view class="title-row">
+          <text class="title-icon">💊</text>
+          <text class="card-title">防疟疾指南</text>
+        </view>
+        <view class="accordion-head" bindtap="onToggleMalaria">
+          <text class="accordion-title">推荐预防药物：阿托伐醌 / 多西环素</text>
+          <text class="accordion-arrow {{malariaOpen ? 'open' : ''}}">⌄</text>
+        </view>
+        <view wx:if="{{malariaOpen}}" class="accordion-body">
+          <block wx:for="{{malariaTips}}" wx:key="*this">
+            <view class="tip-row">
+              <text class="tip-check">✓</text>
+              <text class="tip-item">{{item}}</text>
+            </view>
+          </block>
+          <text class="tip-note">高发区域：金沙萨周边、东部矿区及雨季积水地带，请全程防蚊并及时就医。</text>
+        </view>
+      </view>
+
+      <view class="bottom-gap"></view>
+    </view>
+  </scroll-view>
+
+  <view class="life-channel">
+    <view class="life-btn" bindtap="onCallEmergency">
+      <view class="life-shimmer"></view>
+      <text class="life-text">一键拨打当地急救 112 / 116</text>
+    </view>
+  </view>
+</view>

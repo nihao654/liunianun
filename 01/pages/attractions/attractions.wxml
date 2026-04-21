@@ -1,0 +1,46 @@
+<view class="page-root">
+        <view class="home-back-wrap" bindtap="onBackTap"><view class="home-back-arrow"></view></view>
+
+        <scroll-view class="page-scroll" scroll-y="true">
+                <view class="page-content">
+                        <view class="header-block">
+                                <text class="title">{{currentCountry}}·必游之地</text>
+                                <view class="sub-row">
+                                        <text class="pin-icon">📸</text>
+                                        <text class="subtitle">专业攻略 | 避坑指南 | 离线地图</text>
+                                </view>
+                        </view>
+
+                        <view class="search-block">
+                                <view class="search-shell">
+                                        <text class="search-icon">⌕</text>
+                                        <input class="search-placeholder" placeholder="搜索景点或体验..." />
+                                </view>
+                        </view>
+
+                        <view class="attraction-list">
+                                <block wx:for="{{list}}" wx:key="id">
+                                        <view class="attr-card" bindtap="onAttrTap" data-name="{{item.name}}">
+                                                <view class="attr-img-box">
+                                                        <image class="attr-img" src="{{item.image}}" mode="aspectFill" />
+                                                        <view class="attr-tag-box">
+                                                                <block wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">
+                                                                        <text class="attr-tag">{{tag}}</text>
+                                                                </block>
+                                                        </view>
+                                                </view>
+
+                                                <view class="attr-info">
+                                                        <text class="attr-name">{{item.name}}</text>
+                                                        <text class="attr-desc">{{item.desc}}</text>
+                                                        <view class="attr-tips">
+                                                                <text class="tips-icon">💡</text>
+                                                                <text class="tips-text">{{item.tips}}</text>
+                                                        </view>
+                                                </view>
+                                        </view>
+                                </block>
+                        </view>
+                </view>
+        </scroll-view>
+</view>

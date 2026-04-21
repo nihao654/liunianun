@@ -1,0 +1,13 @@
+/* 01/pages/recommend/recommend.wxss */
+@import "../home/home.wxss";
+
+.active-pill {
+        background: #5f24b6 !important; /* 换个主色调区分模块 */
+}
+.active-pill .tag-text {
+        color: #ffffff !important;
+}
+
+.recommend-list {
+        padding-bottom: 60rpx;
+}

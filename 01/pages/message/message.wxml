@@ -1,0 +1,44 @@
+<import src="../../templates/tabbar.wxml" />
+
+<view class="container">
+    <!-- Removed home-back-wrap as it's a tab bar page -->
+
+    <scroll-view class="page-scroll" scroll-y="true">
+        <view class="page-content">
+            <!-- Adjusted padding for top-fixed tab bar -->
+            <view class="message-header-padding"></view>
+
+            <view class="header-block">
+                <text class="title">消息通知</text>
+                <view class="sub-row">
+                    <text class="subtitle">实时获取当地预警与办事动态</text>
+                </view>
+            </view>
+
+            <view class="notice-list">
+                <block wx:for="{{notices}}" wx:key="id">
+                    <view class="notice-card {{item.unread ? 'unread-style' : ''}}" bindtap="readNotice" data-id="{{item.id}}">
+                        <view class="card-tag" style="background: {{item.tagBg}};">{{item.type}}</view>
+
+                        <view class="notice-main">
+                            <view class="title-row">
+                                <text class="notice-title">{{item.title}}</text>
+                                <text class="notice-time">{{item.time}}</text>
+                            </view>
+                            <text class="notice-desc">{{item.content}}</text>
+                        </view>
+
+                        <view wx:if="{{item.unread}}" class="red-dot"></view>
+                    </view>
+                </block>
+            </view>
+
+            <view wx:if="{{notices.length === 0}}" class="empty-box">
+                <text>暂无新消息</text>
+            </view>
+        </view>
+    </scroll-view>
+
+</view>
+
+<template is="tabbar" data="{{activeTab: 'message'}}"/>

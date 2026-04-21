@@ -1,0 +1,104 @@
+<!-- index.wxml - Quiet Luxury × African Chic Landing -->
+<view class="page-root">
+  <view class="lang-toggle" aria-role="button" bindtap="onFlipLanguage">
+    <block wx:for="{{languageOrder}}" wx:key="*this">
+      <view class="lang-card {{index === 0 ? 'slot-a' : (index === 1 ? 'slot-b' : 'slot-c')}}">
+        <text>{{item === 'ZH' ? '中' : item}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="top-main">
+    <view class="header-section">
+      <text class="main-title">{{uiText.mainTitle}}</text>
+    </view>
+
+    <view class="destination-section">
+      <view class="square-card {{isCountryTransition ? 'card-fade' : ''}}">
+        <image
+          wx:if="{{currentCountryImage}}"
+          class="square-image"
+          src="{{currentCountryImage}}"
+          mode="aspectFill"
+        />
+        <view class="square-image-placeholder" style="background: {{currentCountryBg}};" wx:else></view>
+        <view class="square-mask"></view>
+        <view class="square-glass-info" bindtap="openCountrySheet">
+          <view class="square-country-row {{isCountryTransition ? 'country-fade' : ''}}">
+            <text class="square-country">{{language === 'zh' ? currentCountryZh : currentCountryEn}}</text>
+            <text class="square-country-arrow">▼</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="mode-center-section">
+      <view class="segmented-section">
+        <text class="section-label">{{uiText.modeLabel}}</text>
+        <view class="segmented-container">
+          <view class="segmented-slider {{isWorkMode ? 'slider-right' : 'slider-left'}}"></view>
+          <view class="segmented-item {{!isWorkMode ? 'active' : ''}}" bindtap="onModeSelect" data-mode="travel">
+            <text class="segment-label">{{uiText.travelLabel}}</text>
+          </view>
+          <view class="segmented-item {{isWorkMode ? 'active' : ''}}" bindtap="onModeSelect" data-mode="business">
+            <text class="segment-label">{{uiText.businessLabel}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="cta-section">
+      <button
+        class="primary-button {{language !== 'fr' ? 'cta-text-large' : ''}} {{ctaPressed ? 'button-active' : ''}}"
+        bindtap="onStartJourney"
+        bindtouchstart="onCTAPress"
+        bindtouchend="onCTARelease"
+        bindtouchcancel="onCTARelease"
+      >{{uiText.cta}}</button>
+    </view>
+  </view>
+
+  <view class="bottom-footer">
+    <view class="brand-section">
+      <text class="brand-name">非常行</text>
+      <text class="brand-motto">{{uiText.brandMotto}}</text>
+    </view>
+  </view>
+
+  <view class="sheet-mask {{sheetVisible ? 'show' : ''}}" catchtap="closeCountrySheet"></view>
+  <view class="country-sheet {{sheetVisible ? 'show' : ''}}">
+    <view class="sheet-handle"></view>
+    <view class="sheet-title-wrap">
+      <text class="sheet-title-zh">{{uiText.sheetTitle}}</text>
+      <text class="sheet-title-en">{{uiText.sheetSubtitle}}</text>
+    </view>
+
+    <view class="sheet-search">
+      <text class="sheet-search-icon">⌕</text>
+      <input
+        class="sheet-search-input"
+        value="{{countryKeyword}}"
+        bindinput="onCountrySearchInput"
+        placeholder="{{uiText.searchPlaceholder}}"
+        placeholder-class="sheet-search-placeholder"
+      />
+    </view>
+
+    <view class="country-grid">
+      <block wx:for="{{filteredCountries}}" wx:key="id">
+        <view
+          class="country-item {{pendingCountryId === item.id ? 'active' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="onCountrySelect"
+        >
+          <text class="country-flag">{{item.flag}}</text>
+          <text class="country-zh">{{item.zhName}}</text>
+          <text class="country-en">{{item.enName}}</text>
+          <text wx:if="{{pendingCountryId === item.id}}" class="country-check">✓</text>
+        </view>
+      </block>
+    </view>
+
+    <button class="sheet-confirm-btn" bindtap="confirmCountrySelection">{{uiText.confirmSelection}}</button>
+  </view>
+</view>

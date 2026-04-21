@@ -1,0 +1,44 @@
+<view class="page-root">
+        <view class="home-back-wrap" bindtap="onBackTap"><view class="home-back-arrow"></view></view>
+
+        <scroll-view class="page-scroll" scroll-y="true">
+                <view class="page-content">
+                        <view class="header-block">
+                                <text class="title">{{currentCountry}}·出行推荐</text>
+                                <view class="sub-row">
+                                        <text class="pin-icon">🍴</text>
+                                        <text class="subtitle">美食/住宿/交通一站式本地化推荐</text>
+                                </view>
+                        </view>
+
+                        <scroll-view class="tag-scroll" scroll-x="true">
+                                <view class="tag-row">
+                                        <block wx:for="{{categories}}" wx:key="*this">
+                                                <view class="tag-pill {{activeCategory === item ? 'active-pill' : ''}}"
+                                                            bindtap="onTagTap" data-tag="{{item}}">
+                                                        <text class="tag-text">{{item}}</text>
+                                                </view>
+                                        </block>
+                                </view>
+                        </scroll-view>
+
+                        <view class="recommend-list" style="margin-top: 30rpx;">
+                                <block wx:for="{{displayList}}" wx:key="id">
+                                        <view class="emergency-card hotline" style="margin-bottom: 24rpx; align-items: flex-start; padding: 30rpx;">
+                                                <view style="display: flex; justify-content: space-between; width: 100%;">
+                                                        <text class="en-text" style="color: #5f24b6; font-weight: bold;">[{{item.category}}]</text>
+                                                        <text style="font-size: 24rpx; color: #ff9800;">{{item.rating}}</text>
+                                                </view>
+                                                <text class="zh-text" style="font-size: 32rpx; margin-top: 10rpx;">{{item.name}}</text>
+                                                <text class="en-text" style="font-size: 24rpx; line-height: 1.4; margin-top: 8rpx;">{{item.desc}}</text>
+
+                                                <view style="margin-top: 20rpx; padding: 15rpx; background: rgba(255,255,255,0.5); border-radius: 12rpx; border-left: 6rpx solid #58c796;">
+                                                        <text class="en-text" style="font-size: 20rpx; color: #111827; display: block;">💡 安全避坑：</text>
+                                                        <text class="en-text" style="font-size: 20rpx; color: #4b5563;">{{item.safetyTip}}</text>
+                                                </view>
+                                        </view>
+                                </block>
+                        </view>
+                </view>
+        </scroll-view>
+</view>

@@ -1,0 +1,8 @@
+<import src="../../templates/tabbar.wxml" />
+
+<view class="container">
+    <!-- Your community page content goes here -->
+    <text>Community Page Content</text>
+</view>
+
+<template is="tabbar" data="{{ activeTab: 'community' }}" />

@@ -1,0 +1,165 @@
+Page({
+  data: {
+    welcomeCountryZh: '肯尼亚',
+    welcomeSubtitle: '肯尼亚，内罗毕',
+    tags: ['#内罗毕', '#签证', '#历史', '#马赛马拉', '#摩...'],
+    features: [
+      { label: '签证指南', icon: '🛂', bg: '#dceeff', themeStart: '#dceeff', themeEnd: '#ffffff' },
+      { label: '安全指南', icon: '🛡️', bg: 'linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%)', themeStart: '#FFF3E0', themeEnd: '#FFE0B2' },
+      { label: '防疫健康', icon: '✚', bg: 'linear-gradient(135deg, #FDFDFD 0%, #FFF8E1 100%)', themeStart: '#FDFDFD', themeEnd: '#FFF8E1' },
+      { label: '当地风俗', icon: '🎭', bg: 'linear-gradient(135deg, #FCE4EC 0%, #F8BBD0 100%)', themeStart: '#FCE4EC', themeEnd: '#F8BBD0' },
+      { label: '劳务合规', icon: '🤝', bg: 'linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%)', themeStart: '#E3F2FD', themeEnd: '#BBDEFB' },
+      { label: '实用词句', icon: '🗨️', bg: 'linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%)', themeStart: '#F3E5F5', themeEnd: '#E1BEE7' },
+      { label: '景点攻略', icon: '🗺️', bg: 'linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%)', themeStart: '#E0F7FA', themeEnd: '#B2EBF2' },
+      { label: '出行推荐', icon: '🧭', bg: 'linear-gradient(135deg, #FFFDE7 0%, #FFECB3 100%)', themeStart: '#FFFDE7', themeEnd: '#FFECB3' }
+    ]
+  },
+
+  onLoad() {
+    wx.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#f8f9fa',
+      animation: {
+        duration: 200,
+        timingFunc: 'easeIn'
+      }
+    });
+  },
+
+  onShow() {
+    const cached = wx.getStorageSync('selectedDestination');
+    const subtitleMap = {
+      '刚果(金)': '刚果(金)，金沙萨',
+      '加纳': '加纳，阿克拉',
+      '埃及': '埃及，开罗',
+      '安哥拉': '安哥拉，罗安达',
+      '尼日利亚': '尼日利亚，阿布贾',
+      '南非': '南非，约翰内斯堡',
+      '马达加斯加': '马达加斯加，塔那那利佛',
+      '坦桑尼亚': '坦桑尼亚，达累斯萨拉姆',
+      '肯尼亚': '肯尼亚，内罗毕',
+      '科特迪瓦': '科特迪瓦，阿比让',
+      '赞比亚': '赞比亚，卢萨卡'
+    };
+
+    if (cached && cached.zhName) {
+      this.setData({
+        welcomeCountryZh: cached.zhName,
+        welcomeSubtitle: subtitleMap[cached.zhName] || `${cached.zhName}，签证与出行`
+      });
+      return;
+    }
+
+    this.setData({
+      welcomeCountryZh: '肯尼亚',
+      welcomeSubtitle: '肯尼亚，内罗毕'
+    });
+  },
+
+  onFilterTap() {
+    wx.showToast({
+      title: '筛选功能开发中',
+      icon: 'none'
+    });
+  },
+
+  onTagTap(e) {
+    const { tag } = e.currentTarget.dataset;
+    wx.showToast({
+      title: `已选择${tag}`,
+      icon: 'none',
+    });
+  },
+
+  onMoreTap() {
+    wx.showToast({
+      title: '更多安全资讯开发中',
+      icon: 'none'
+    });
+  },
+
+  onOpenSecurityGuide() {
+    wx.navigateTo({
+      url: '/pages/security/security'
+    });
+  },
+
+  onFeatureTap(e) {
+    const { name, themeStart, themeEnd } = e.currentTarget.dataset;
+    const featureRouteMap = {
+      '签证指南': '/pages/logs/logs',
+      '安全指南': '/pages/security/security',
+      '防疫健康': '/pages/home/health',
+      '当地风俗': '/pages/customs/customs',
+      '劳务合规': '/pages/labor/labor',
+      '实用词句': '/pages/phrases/phrases',
+      '景点攻略': '/pages/attractions/attractions',
+      '出行推荐': '/pages/recommend/recommend'
+    };
+
+    const route = featureRouteMap[name];
+    if (route) {
+      const url = `${route}?themeStart=${encodeURIComponent(themeStart || '')}&themeEnd=${encodeURIComponent(themeEnd || '')}`;
+      wx.navigateTo({ url });
+      return;
+    }
+
+    wx.showToast({
+      title: `进入${name}`,
+      icon: 'none'
+    });
+  },
+
+  onEmergencyTap(e) {
+    const { type } = e.currentTarget.dataset;
+    const title = type === 'embassy' ? '致电大使馆' : '紧急电话';
+    wx.showToast({
+      title,
+      icon: 'none'
+    });
+  },
+
+  onHomeBackTap() {
+    wx.navigateBack({
+      delta: 1,
+      fail: () => {
+        wx.redirectTo({
+          url: '/pages/index/index'
+        });
+      }
+    });
+  },
+
+  onTabTap(e) {
+    const { tab } = e.currentTarget.dataset;
+    if (tab === 'home') {
+      return;
+    }
+
+    const tabRouteMap = {
+      community: '/pages/community/community',
+      publish: '/pages/publish/publish',
+      message: '/pages/message/message',
+      profile: '/pages/profile/profile'
+    };
+
+    const url = tabRouteMap[tab];
+    if (!url) {
+      wx.showToast({
+        title: `${tab}开发中`,
+        icon: 'none'
+      });
+      return;
+    }
+
+    wx.switchTab({
+      url,
+      fail: () => {
+        wx.showToast({
+          title: '跳转失败，请稍后重试',
+          icon: 'none'
+        });
+      }
+    });
+  }
+});

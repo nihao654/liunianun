@@ -1,0 +1,3 @@
+.ghost-tabbar {
+  display: none;
+}

@@ -1,0 +1,442 @@
+/* D:/Code/proj/小程序/01/pages/home/home.wxss */
+@import "../../templates/tabbar.wxss"; /* Import the common tabbar styles */
+
+page {
+  background: #f8f9fa;
+  color: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
+}
+
+.page-root {
+  position: relative;
+  min-height: 100vh; /* Use min-height to allow content to expand */
+  background: #f8f9fa;
+}
+
+.home-back-wrap {
+  position: absolute;
+  left: 24rpx;
+  top: calc(env(safe-area-inset-top) + 0rpx);
+  z-index: 30;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 22rpx;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1rpx solid rgba(196, 220, 248, 0.9);
+  box-shadow: 0 8rpx 18rpx rgba(124, 160, 204, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(34rpx);
+}
+
+.home-back-arrow {
+  width: 20rpx;
+  height: 20rpx;
+  border-left: 4rpx solid #254567;
+  border-bottom: 4rpx solid #254567;
+  transform: rotate(45deg);
+  margin-left: 6rpx;
+}
+
+.home-header-padding {
+    /* This class will push down the content below the fixed tab bar */
+  height: 98px;
+}
+
+.page-scroll {
+  height: 100vh; /* Still useful for scrollable content */
+}
+
+.page-content {
+  box-sizing: border-box;
+  width: 690rpx;
+  max-width: calc(100vw - 40rpx);
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: calc(env(safe-area-inset-top) + 72px);
+  padding-right: 0;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 180rpx);
+  padding-left: 0;
+  margin-top: 0;
+}
+
+.header-block {
+  width: 100%;
+  margin-bottom: 54rpx;
+}
+
+.title {
+  display: block;
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #121212;
+  line-height: 1.28;
+}
+
+.sub-row {
+  margin-top: 8rpx;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.pin-icon {
+  font-size: 24rpx;
+  color: #97a0aa;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #97a0aa;
+}
+
+.search-block {
+  width: 100%;
+  margin-bottom: 32rpx;
+}
+
+.search-shell {
+  height: 80rpx;
+  border-radius: 40rpx;
+  background: #f2f4f6;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 26rpx;
+  padding-right: 12rpx;
+}
+
+.search-icon {
+  color: #a5adb6;
+  font-size: 28rpx;
+  margin-right: 10rpx;
+}
+
+.search-placeholder {
+  flex: 1;
+  color: #a5adb6;
+  font-size: 26rpx;
+}
+
+.filter-btn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 16rpx;
+  background: #65c79c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 18rpx rgba(101, 199, 156, 0.24);
+  transform: translateY(-4rpx);
+}
+
+.filter-icon {
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.tag-scroll {
+  width: 100%;
+  margin-top: 34rpx;
+  white-space: nowrap;
+}
+
+.tag-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10rpx;
+  padding-right: 8rpx;
+}
+
+.tag-pill {
+  flex-shrink: 0;
+  padding: 10rpx 18rpx;
+  border-radius: 999rpx;
+  background: #eef1f3;
+  transform: translateY(-4rpx);
+}
+
+.tag-text {
+  font-size: 24rpx;
+  color: #4b5563;
+}
+
+.safety-card {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  border-radius: 28rpx;
+  background: linear-gradient(135deg, #72cfaa 0%, #52b58f 45%, #63c89e 100%);
+  box-shadow: 0 12rpx 30rpx rgba(76, 177, 137, 0.24);
+  padding: 24rpx;
+}
+
+.safety-card::after {
+  content: "";
+  position: absolute;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  right: -28rpx;
+  top: 30rpx;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.safety-header,
+.safety-level-row,
+.safety-text,
+.safety-date {
+  position: relative;
+  z-index: 1;
+}
+
+.safety-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.safety-title {
+  color: #ffffff;
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.safety-more {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 24rpx;
+  transform: translateY(-4rpx);
+}
+
+.safety-level-row {
+  margin-top: 12rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.safety-level {
+  color: #ffffff;
+  font-size: 26rpx;
+}
+
+.shield-icon {
+  color: #ffffff;
+  font-size: 30rpx;
+}
+
+.safety-text {
+  margin-top: 12rpx;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.safety-date {
+  margin-top: 12rpx;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 22rpx;
+}
+
+.custom-tabbar {
+  bottom: calc(constant(safe-area-inset-bottom) + 4px) !important;
+  bottom: calc(env(safe-area-inset-bottom) + 4px) !important;
+  z-index: 9999;
+}
+
+.feature-block {
+  width: 100%;
+  margin-top: 36rpx;
+}
+
+.feature-title {
+  display: block;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40rpx 10rpx;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-4rpx);
+}
+
+.feature-icon-shell {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-grid .feature-item:nth-child(2) .feature-icon-shell {
+  background-image: linear-gradient(135deg, #E8FAEE 0%, #BEEFD0 100%) !important;
+}
+
+.feature-grid .feature-item:nth-child(2) .feature-icon {
+  color: #2F80ED;
+}
+
+.feature-grid .feature-item:nth-child(3) .feature-icon-shell {
+  background-image: linear-gradient(135deg, #FDFDFD 0%, #FFF8E1 100%) !important;
+  border-radius: 50%;
+}
+
+.feature-grid .feature-item:nth-child(3) .feature-icon {
+  color: #1565C0;
+}
+
+.health-cross-mark {
+  position: relative;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.health-cross-fill {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 24rpx;
+  height: 24rpx;
+  transform: translate(-50%, -50%);
+}
+
+.health-cross-h,
+.health-cross-v {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: #1565C0;
+  border-radius: 2rpx;
+  transform: translate(-50%, -50%);
+}
+
+.health-cross-h {
+  width: 24rpx;
+  height: 8rpx;
+}
+
+.health-cross-v {
+  width: 8rpx;
+  height: 24rpx;
+}
+
+.health-cross-glint {
+  position: absolute;
+  right: 8rpx;
+  top: 9rpx;
+  width: 8rpx;
+  height: 3rpx;
+  border-radius: 999rpx;
+  background: #FFD700;
+  transform: rotate(-18deg);
+}
+
+.feature-grid .feature-item:nth-child(4) .feature-icon-shell {
+  background-image: linear-gradient(135deg, #FCE4EC 0%, #F8BBD0 100%) !important;
+}
+
+.feature-grid .feature-item:nth-child(4) .feature-icon {
+  color: #C2185B;
+}
+
+.feature-grid .feature-item:nth-child(5) .feature-icon-shell {
+  background-image: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%) !important;
+}
+
+.feature-grid .feature-item:nth-child(5) .feature-icon {
+  color: #1976D2;
+}
+
+.feature-grid .feature-item:nth-child(6) .feature-icon-shell {
+  background-image: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%) !important;
+}
+
+.feature-grid .feature-item:nth-child(6) .feature-icon {
+  color: #7B1FA2;
+}
+
+.feature-grid .feature-item:nth-child(7) .feature-icon-shell {
+  background-image: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%) !important;
+}
+
+.feature-grid .feature-item:nth-child(7) .feature-icon {
+  color: #0097A7;
+}
+
+.feature-grid .feature-item:nth-child(8) .feature-icon-shell {
+  background-image: linear-gradient(135deg, #FFFDE7 0%, #FFECB3 100%) !important;
+}
+
+.feature-grid .feature-item:nth-child(8) .feature-icon {
+  color: #FBC02D;
+}
+
+.feature-icon {
+  color: #374151;
+  font-size: 40rpx;
+}
+
+.feature-label {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #374151;
+}
+
+.emergency-row {
+  width: 100%;
+  margin-top: 32rpx;
+  display: flex;
+  gap: 16rpx;
+}
+
+.emergency-card {
+  flex: 1;
+  border-radius: 20rpx;
+  padding: 20rpx 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6rpx 16rpx rgba(15, 23, 42, 0.08);
+  transform: translateY(-4rpx);
+}
+
+.embassy {
+  background: #edf1f6;
+}
+
+.hotline {
+  background: #f2edf5;
+}
+
+.emergency-icon {
+  font-size: 42rpx;
+  margin-bottom: 8rpx;
+}
+
+.en-text {
+  font-size: 20rpx;
+  color: #6b7280;
+}
+
+.zh-text {
+  margin-top: 4rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #111827;
+}

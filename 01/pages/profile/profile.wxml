@@ -1,0 +1,45 @@
+<import src="../../templates/tabbar.wxml" />
+
+<view class="container">
+    <view class="profile-header">
+        <view class="user-info-card">
+            <block wx:if="{{!isLogin}}">
+                <button class="login-btn" bindtap="getUserProfile">
+                    <view class="avatar-placeholder">👤</view>
+                    <text class="login-text">点击微信一键登录</text>
+                </button>
+            </block>
+
+            <block wx:else>
+                <view class="avatar-wrap">
+                    <image src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+                </view>
+                <view class="user-detail">
+                    <text class="user-name">{{userInfo.nickName}}</text>
+                    <text class="user-id">当前国家：{{currentCountry}}</text>
+                </view>
+            </block>
+        </view>
+    </view>
+
+    <view class="profile-section">
+        <view class="section-title">我的收藏</view>
+        <view class="bookmarks-list">
+            <!-- Placeholder for bookmarks -->
+            <view wx:if="{{bookmarks.length === 0}}" class="empty-state">
+                <text>暂无收藏内容</text>
+            </view>
+            <block wx:for="{{bookmarks}}" wx:key="id">
+                <view class="bookmark-item">
+                    <text>{{item.title}}</text>
+                    <text class="bookmark-date">{{item.date}}</text>
+                </view>
+            </block>
+        </view>
+    </view>
+
+    <!-- Add more profile sections as needed -->
+
+</view>
+
+<template is="tabbar" data="{{ activeTab: 'profile' }}" />

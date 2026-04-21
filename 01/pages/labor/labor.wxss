@@ -1,0 +1,7 @@
+/* 01/pages/labor/labor.wxss */
+@import "../home/home.wxss";
+
+/* 针对强制性政策的特殊卡片颜色修饰 */
+.labor-list {
+        padding-top: 20rpx;
+}

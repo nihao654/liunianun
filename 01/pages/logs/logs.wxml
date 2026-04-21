@@ -1,0 +1,83 @@
+<view class="page-root" style="{{pageThemeStyle}}">
+  <view class="bg-layer">
+    <view class="bg-radial top"></view>
+    <view class="bg-radial bottom"></view>
+    <text class="bg-watermark">{{countryFlag}}</text>
+  </view>
+
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px; height: {{navWrapHeight}}px;">
+    <view class="nav-back-wrap" bindtap="goBack">
+      <view class="nav-back-arrow"></view>
+    </view>
+    <view class="nav-center-spacer"></view>
+  </view>
+
+  <scroll-view class="content-scroll" scroll-y="true" show-scrollbar="false" enhanced="true" enable-flex="true">
+    <view class="content-wrap">
+      <view class="hero-head">
+        <text class="hero-title">{{countryName}} 签证指南</text>
+        <text class="hero-date">更新日期：{{updateDate}}</text>
+      </view>
+
+      <view class="policy-card">
+        <view class="policy-head">
+          <text class="policy-icon">⚠️</text>
+          <text class="policy-title">最新政策提醒</text>
+        </view>
+        <text class="policy-text">{{latestPolicyChange}}</text>
+      </view>
+
+      <view class="visa-list">
+        <view wx:if="{{noData}}" class="no-data-card">
+          <text class="no-data-title">暂无该国家信息</text>
+          <text class="no-data-desc">当前国家清单：刚果(金)、加纳、埃及、安哥拉、尼日利亚、南非、马达加斯加、肯尼亚、坦桑尼亚、科特迪瓦、赞比亚。</text>
+        </view>
+
+        <block wx:for="{{visaItems}}" wx:key="id">
+          <view class="visa-item-wrap">
+            <view class="visa-card">
+              <view class="visa-left">
+                <view class="visa-icon-box">
+                  <text class="visa-icon">{{item.icon}}</text>
+                </view>
+              </view>
+
+              <view class="visa-mid">
+                <text class="visa-type">{{item.visaType}}</text>
+                <text class="visa-mode">{{item.visaMode}}</text>
+                <text class="visa-processing">办理时长：{{item.processingTime}}</text>
+              </view>
+
+              <view class="visa-right">
+                <button class="materials-btn" bindtap="toggleVisaExpand" data-id="{{item.id}}">点击展开更多信息</button>
+              </view>
+            </view>
+
+            <view class="accordion-panel {{expandedVisaId === item.id ? 'show' : ''}}">
+              <view class="accordion-inner">
+                <text class="accordion-title">材料清单</text>
+                <text wx:if="{{item.keyInfo.redTip}}" class="accordion-tip danger">{{item.keyInfo.redTip}}</text>
+                <text wx:if="{{item.keyInfo.extraTip}}" class="accordion-tip">{{item.keyInfo.extraTip}}</text>
+
+                <block wx:for="{{item.keyInfo.materialsList}}" wx:key="index" wx:for-item="material">
+                  <view class="accordion-row">
+                    <text class="accordion-dot">•</text>
+                    <text class="accordion-text">{{material}}</text>
+                  </view>
+                </block>
+
+                <text class="accordion-title validity">有效期与停留期</text>
+                <block wx:for="{{item.keyInfo.validityList}}" wx:key="index" wx:for-item="validity">
+                  <view class="accordion-row">
+                    <text class="accordion-dot">•</text>
+                    <text class="accordion-text">{{validity}}</text>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </scroll-view>
+</view>
