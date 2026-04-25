@@ -1,15 +1,81 @@
 <import src="../../templates/tabbar.wxml" />
 
-<view class="container">
-    <view class="publish-header-padding"></view>
-    <view class="page-content">
-        <text>Publish Page Content</text>
-        <!-- Content for posting updates, images, and SOS alerts -->
-        <view class="publish-options">
-            <button class="publish-btn">发布动态</button>
-            <button class="publish-btn">上传图片</button>
-            <button class="publish-btn sos-btn">发布SOS求助</button>
+<view class="publish-page">
+    <view class="sunset-flow flow-one"></view>
+    <view class="sunset-flow flow-two"></view>
+    <view class="sunset-flow flow-three"></view>
+    <view class="ambient ambient-one"></view>
+    <view class="ambient ambient-two"></view>
+    <view class="ambient ambient-three"></view>
+    <view class="light-ray ray-one"></view>
+    <view class="light-ray ray-two"></view>
+    <view class="light-ray ray-three"></view>
+
+    <scroll-view class="publish-scroll" scroll-y="true" show-scrollbar="false">
+        <view class="publish-shell">
+            <view class="top-nav">
+                <view class="top-nav-row">
+                    <view>
+                        <text class="top-nav-caption">发布动态</text>
+                        <text class="top-nav-title">记录你的非洲旅程</text>
+                    </view>
+                    <view class="draft-chip">
+                        <text class="draft-chip-text">草原日落</text>
+                    </view>
+                </view>
+                <text class="top-nav-subtitle">用文字与照片，留住旅途中那些金色的瞬间与温柔的记忆。</text>
+            </view>
+
+            <view class="compose-card">
+                <text class="compose-label">内容正文</text>
+                <textarea
+                    class="compose-textarea"
+                    auto-height="true"
+                    maxlength="300"
+                    placeholder="分享你的旅程..."
+                    placeholder-class="compose-placeholder"
+                    value="{{content}}"
+                    bindinput="onContentInput"
+                />
+
+                <view class="media-header">
+                    <text class="media-title">上传照片</text>
+                    <text class="media-meta">最多 4 张</text>
+                </view>
+
+                <view class="upload-grid">
+                    <block wx:for="{{mediaSlots}}" wx:key="id">
+                        <view wx:if="{{item.isFilled}}" class="upload-cell upload-cell-filled">
+                            <image class="upload-preview" src="{{item.image}}" mode="aspectFill" />
+                            <view class="remove-chip" catchtap="onRemoveMedia" data-index="{{index}}">
+                                <text class="remove-chip-text">×</text>
+                            </view>
+                        </view>
+
+                        <view wx:else class="upload-cell upload-cell-empty" bindtap="onUploadTap">
+                            <text class="upload-plus">+</text>
+                            <text class="upload-label">{{item.label}}</text>
+                            <text class="upload-hint">{{item.hint}}</text>
+                        </view>
+                    </block>
+                </view>
+
+                <view class="submit-btn" bindtap="onPublishTap">
+                    <text class="submit-btn-text">立即发布</text>
+                </view>
+            </view>
+
+            <view class="sos-reflection"></view>
+
+            <view class="bottom-space"></view>
         </view>
+    </scroll-view>
+
+    <view class="sos-pill" bindtap="onSOSTap">
+        <view class="sos-shield">
+            <text class="sos-shield-text">S</text>
+        </view>
+        <text class="sos-pill-text">紧急求助</text>
     </view>
 </view>
 

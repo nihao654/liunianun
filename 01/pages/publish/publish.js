@@ -1,51 +1,131 @@
-Component({
-    properties: {},
+const MAX_MEDIA_COUNT = 4;
+
+function createMediaSlots(mediaList) {
+    const list = mediaList || [];
+
+    return Array.from({ length: MAX_MEDIA_COUNT }, (_, index) => {
+        const media = list[index];
+
+        if (media) {
+            return {
+                id: index + 1,
+                isFilled: true,
+                image: media.tempFilePath
+            };
+        }
+
+        return {
+            id: index + 1,
+            isFilled: false,
+            label: index === list.length ? '添加照片' : '保留框位',
+            hint: index === list.length ? '点击上传' : '预留版面'
+        };
+    });
+}
+
+Page({
     data: {
-        activeTab: 'publish' // Set initial active tab for this page
+        activeTab: 'publish',
+        content: '',
+        mediaList: [],
+        mediaSlots: createMediaSlots([])
     },
-    methods: {
-        onTabTap: function(e) {
-            const tab = e.currentTarget.dataset.tab;
-            if (tab === this.data.activeTab) {
-                return; // Already on this tab
-            }
 
-            let url = '';
-            switch (tab) {
-                case 'home':
-                    url = '/pages/home/home';
-                    break;
-                case 'community':
-                    url = '/pages/community/community';
-                    break;
-                case 'publish':
-                    url = '/pages/publish/publish';
-                    break;
-                case 'message':
-                    url = '/pages/message/message';
-                    break;
-                case 'profile':
-                    url = '/pages/profile/profile';
-                    break;
-                default:
-                    break;
+    onLoad() {
+        wx.setNavigationBarColor({
+            frontColor: '#000000',
+            backgroundColor: '#fff6ed',
+            animation: {
+                duration: 180,
+                timingFunc: 'easeIn'
             }
+        });
+    },
 
-            if (url) {
-                wx.switchTab({
-                    url: url,
-                    fail: (res) => {
-                        console.error(`Failed to switch tab to ${url}:`, res);
-                        // If switchTab fails (e.g., not a tab bar page), try navigateTo
-                        wx.navigateTo({
-                            url: url,
-                            fail: (navRes) => {
-                                console.error(`Failed to navigate to ${url}:`, navRes);
-                            }
-                        });
-                    }
+    onContentInput(e) {
+        this.setData({
+            content: e.detail.value
+        });
+    },
+
+    onUploadTap() {
+        const remaining = MAX_MEDIA_COUNT - this.data.mediaList.length;
+
+        if (remaining <= 0) {
+            wx.showToast({
+                title: '最多上传4张照片',
+                icon: 'none'
+            });
+            return;
+        }
+
+        wx.chooseMedia({
+            count: remaining,
+            mediaType: ['image'],
+            sizeType: ['compressed'],
+            success: (res) => {
+                const nextMediaList = this.data.mediaList
+                    .concat(res.tempFiles.map((file) => ({ tempFilePath: file.tempFilePath })))
+                    .slice(0, MAX_MEDIA_COUNT);
+
+                this.setData({
+                    mediaList: nextMediaList,
+                    mediaSlots: createMediaSlots(nextMediaList)
                 });
             }
+        });
+    },
+
+    onRemoveMedia(e) {
+        const { index } = e.currentTarget.dataset;
+        const nextMediaList = this.data.mediaList.filter((_, mediaIndex) => mediaIndex !== index);
+
+        this.setData({
+            mediaList: nextMediaList,
+            mediaSlots: createMediaSlots(nextMediaList)
+        });
+    },
+
+    onPublishTap() {
+        if (!this.data.content.trim() && !this.data.mediaList.length) {
+            wx.showToast({
+                title: 'Add text or photos first',
+                icon: 'none'
+            });
+            return;
         }
+
+        wx.showToast({
+            title: 'Publishing soon',
+            icon: 'none'
+        });
+    },
+
+    onSOSTap() {
+        wx.navigateTo({
+            url: '/pages/security/security'
+        });
+    },
+
+    onTabTap(e) {
+        const tab = e.currentTarget.dataset.tab;
+        if (tab === this.data.activeTab) {
+            return;
+        }
+
+        const tabRouteMap = {
+            home: '/pages/home/home',
+            community: '/pages/community/community',
+            publish: '/pages/publish/publish',
+            message: '/pages/message/message',
+            profile: '/pages/profile/profile'
+        };
+
+        const url = tabRouteMap[tab];
+        if (!url) {
+            return;
+        }
+
+        wx.switchTab({ url });
     }
 });

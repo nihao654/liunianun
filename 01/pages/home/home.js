@@ -1,17 +1,23 @@
+import { ElephantRenderer } from '../../utils/elephant-renderer.js';
+
 Page({
   data: {
+    elephantRenderer: null,
+    isAnimating: false,
+    isChatOpen: false,
+    isElephantRevealed: false,
     welcomeCountryZh: '肯尼亚',
     welcomeSubtitle: '肯尼亚，内罗毕',
     tags: ['#内罗毕', '#签证', '#历史', '#马赛马拉', '#摩...'],
     features: [
       { label: '签证指南', icon: '🛂', bg: '#dceeff', themeStart: '#dceeff', themeEnd: '#ffffff' },
-      { label: '安全指南', icon: '🛡️', bg: 'linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%)', themeStart: '#FFF3E0', themeEnd: '#FFE0B2' },
       { label: '防疫健康', icon: '✚', bg: 'linear-gradient(135deg, #FDFDFD 0%, #FFF8E1 100%)', themeStart: '#FDFDFD', themeEnd: '#FFF8E1' },
       { label: '当地风俗', icon: '🎭', bg: 'linear-gradient(135deg, #FCE4EC 0%, #F8BBD0 100%)', themeStart: '#FCE4EC', themeEnd: '#F8BBD0' },
+      { label: '本地资讯', icon: '📰', bg: 'linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%)', themeStart: '#FFF3E0', themeEnd: '#FFE0B2' },
+      { label: '出行推荐', icon: '🧭', bg: 'linear-gradient(135deg, #FFFDE7 0%, #FFECB3 100%)', themeStart: '#FFFDE7', themeEnd: '#FFECB3' },
       { label: '劳务合规', icon: '🤝', bg: 'linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%)', themeStart: '#E3F2FD', themeEnd: '#BBDEFB' },
       { label: '实用词句', icon: '🗨️', bg: 'linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%)', themeStart: '#F3E5F5', themeEnd: '#E1BEE7' },
-      { label: '景点攻略', icon: '🗺️', bg: 'linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%)', themeStart: '#E0F7FA', themeEnd: '#B2EBF2' },
-      { label: '出行推荐', icon: '🧭', bg: 'linear-gradient(135deg, #FFFDE7 0%, #FFECB3 100%)', themeStart: '#FFFDE7', themeEnd: '#FFECB3' }
+      { label: '景点攻略', icon: '🗺️', bg: 'linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%)', themeStart: '#E0F7FA', themeEnd: '#B2EBF2' }
     ]
   },
 
@@ -56,6 +62,76 @@ Page({
     });
   },
 
+  onReady() {
+    wx.createSelectorQuery().select('#lottie-canvas').node(res => {
+      if (!res || !res.node) return;
+      const canvas = res.node;
+      const context = canvas.getContext('2d');
+      // 设置高分辨率防锯齿
+      const dpr = wx.getWindowInfo().pixelRatio;
+      const cssWidth = 160; 
+      const cssHeight = 160;
+      canvas.width = cssWidth * dpr;
+      canvas.height = cssHeight * dpr;
+      context.scale(dpr, dpr);
+
+      // 使用自定义渲染引擎
+      const renderer = new ElephantRenderer(canvas, context);
+      renderer.setState('peek');
+      renderer.start();
+      
+      this.setData({ elephantRenderer: renderer });
+    }).exec();
+  },
+
+  handleTapElephant() {
+    if (this.data.isAnimating) return;
+    
+    // 触觉真实反馈
+    wx.vibrateShort({
+      type: 'medium'
+    });
+
+    const isRevealed = this.data.isElephantRevealed;
+    const renderer = this.data.elephantRenderer;
+
+    if (!isRevealed) {
+      // 从右侧出来，变成开心状态，打开气泡
+      this.setData({ isElephantRevealed: true, isAnimating: true, isChatOpen: true });
+      if (renderer) {
+        renderer.setState('happy');
+        
+        // 1.5 秒后恢复闲置动画，但依然停留在页面中心
+        setTimeout(() => {
+          renderer.setState('idle');
+          this.setData({ isAnimating: false });
+        }, 1500);
+      } else {
+        this.setData({ isAnimating: false });
+      }
+    } else {
+      // 如果已经出来了，再次点击就收起气泡，并躲回右边去
+      this.setData({ isElephantRevealed: false, isAnimating: true, isChatOpen: false });
+      
+      if (renderer) {
+        // 躲回去的时候不开心了，恢复静默闲置即可
+        renderer.setState('peek');
+        setTimeout(() => {
+          this.setData({ isAnimating: false });
+        }, 800); // 等待 CSS transition 平滑过去
+      } else {
+        this.setData({ isAnimating: false });
+      }
+    }
+  },
+
+  onUnload() {
+    const renderer = this.data.elephantRenderer;
+    if (renderer) {
+      renderer.stop();
+    }
+  },
+
   onFilterTap() {
     wx.showToast({
       title: '筛选功能开发中',
@@ -86,19 +162,27 @@ Page({
 
   onFeatureTap(e) {
     const { name, themeStart, themeEnd } = e.currentTarget.dataset;
+    if (name === '景点攻略') return;
+
     const featureRouteMap = {
       '签证指南': '/pages/logs/logs',
-      '安全指南': '/pages/security/security',
+      '本地资讯': '/pages/community/community',
       '防疫健康': '/pages/home/health',
       '当地风俗': '/pages/customs/customs',
       '劳务合规': '/pages/labor/labor',
       '实用词句': '/pages/phrases/phrases',
-      '景点攻略': '/pages/attractions/attractions',
       '出行推荐': '/pages/recommend/recommend'
     };
 
     const route = featureRouteMap[name];
     if (route) {
+      if (route === '/pages/community/community') {
+        wx.switchTab({
+          url: route
+        });
+        return;
+      }
+
       const url = `${route}?themeStart=${encodeURIComponent(themeStart || '')}&themeEnd=${encodeURIComponent(themeEnd || '')}`;
       wx.navigateTo({ url });
       return;

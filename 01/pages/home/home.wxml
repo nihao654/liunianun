@@ -5,32 +5,25 @@
 
   <scroll-view class="page-scroll" scroll-y="true" show-scrollbar="false" enhanced="true">
     <view class="page-content">
-      <view class="header-block">
-        <text class="title">欢迎来到{{welcomeCountryZh}}</text>
-        <view class="sub-row">
-          <text class="pin-icon">📍</text>
-          <text class="subtitle">{{welcomeSubtitle}}</text>
-        </view>
-      </view>
-
-      <view class="search-block">
-        <view class="search-shell">
-          <text class="search-icon">⌕</text>
-          <text class="search-placeholder">例如：“游猎”...</text>
-          <view class="filter-btn" bindtap="onFilterTap">
-            <text class="filter-icon">☷</text>
-          </view>
+      
+      <!-- 大体量 AI 伴游互动舱 -->
+      <view class="ai-hero-container">
+        <!-- 欢迎语与引导 -->
+        <view class="hero-text-area">
+          <text class="hero-title">你好，我是你的{{welcomeCountryZh}}向导</text>
         </view>
 
-        <scroll-view class="tag-scroll" scroll-x="true" show-scrollbar="false">
-          <view class="tag-row">
-            <block wx:for="{{tags}}" wx:key="*this">
-              <view class="tag-pill" bindtap="onTagTap" data-tag="{{item}}">
-                <text class="tag-text">{{item}}</text>
-              </view>
-            </block>
+        <!-- 核心 Canvas 节点及交互气泡 -->
+        <view class="elephant-interaction-area {{isElephantRevealed ? 'revealed' : 'hidden'}}">
+          <view class="elephant-wrapper" bindtap="handleTapElephant">
+            <canvas id="lottie-canvas" type="2d" bindtap="handleTapElephant" style="width:160px;height:160px;margin:0 auto;" />
+            <!-- 由小象触发的右侧气泡 -->
+            <view class="elephant-tooltip {{isChatOpen ? 'show' : ''}}">
+              <text>您可以尝试问我“签证”或“大使馆”</text>
+              <view class="tooltip-arrow"></view>
+            </view>
           </view>
-        </scroll-view>
+        </view>
       </view>
 
       <view class="safety-card" bindtap="onOpenSecurityGuide">

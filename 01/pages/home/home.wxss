@@ -1,5 +1,4 @@
-/* D:/Code/proj/小程序/01/pages/home/home.wxss */
-@import "../../templates/tabbar.wxss"; /* Import the common tabbar styles */
+@import "../../templates/tabbar.wxss";
 
 page {
   background: #f8f9fa;
@@ -7,161 +6,114 @@ page {
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
 }
 
-.page-root {
+/* =========================================
+   大体 ?AI 伴游互动 ?(AI Hero Container)
+   ========================================= */
+.ai-hero-container {
   position: relative;
-  min-height: 100vh; /* Use min-height to allow content to expand */
-  background: #f8f9fa;
-}
-
-.home-back-wrap {
-  position: absolute;
-  left: 24rpx;
-  top: calc(env(safe-area-inset-top) + 0rpx);
-  z-index: 30;
-  width: 72rpx;
-  height: 72rpx;
-  border-radius: 22rpx;
-  background: rgba(255, 255, 255, 0.84);
-  border: 1rpx solid rgba(196, 220, 248, 0.9);
-  box-shadow: 0 8rpx 18rpx rgba(124, 160, 204, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(34rpx);
-}
-
-.home-back-arrow {
-  width: 20rpx;
-  height: 20rpx;
-  border-left: 4rpx solid #254567;
-  border-bottom: 4rpx solid #254567;
-  transform: rotate(45deg);
-  margin-left: 6rpx;
-}
-
-.home-header-padding {
-    /* This class will push down the content below the fixed tab bar */
-  height: 98px;
-}
-
-.page-scroll {
-  height: 100vh; /* Still useful for scrollable content */
-}
-
-.page-content {
-  box-sizing: border-box;
-  width: 690rpx;
-  max-width: calc(100vw - 40rpx);
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: calc(env(safe-area-inset-top) + 72px);
-  padding-right: 0;
-  padding-bottom: calc(env(safe-area-inset-bottom) + 180rpx);
-  padding-left: 0;
-  margin-top: 0;
-}
-
-.header-block {
   width: 100%;
-  margin-bottom: 54rpx;
-}
-
-.title {
-  display: block;
-  font-size: 52rpx;
-  font-weight: 700;
-  color: #121212;
-  line-height: 1.28;
-}
-
-.sub-row {
-  margin-top: 8rpx;
-  display: flex;
-  align-items: center;
-  gap: 8rpx;
-}
-
-.pin-icon {
-  font-size: 24rpx;
-  color: #97a0aa;
-}
-
-.subtitle {
-  font-size: 26rpx;
-  color: #97a0aa;
-}
-
-.search-block {
-  width: 100%;
-  margin-bottom: 32rpx;
-}
-
-.search-shell {
-  height: 80rpx;
+  height: 560rpx;
+  margin-bottom: 60rpx;
   border-radius: 40rpx;
-  background: #f2f4f6;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  box-sizing: border-box;
-  padding-left: 26rpx;
-  padding-right: 12rpx;
+  overflow: visible;
+  background: radial-gradient(circle at 50% 30%, #e0f7fa 0%, #f1f8e9 40%, #ffffff 100%);
+  box-shadow: 0 20rpx 50rpx rgba(224, 247, 250, 0.5), inset 0 4rpx 10rpx rgba(255, 255, 255, 0.8);
+  border: 1rpx solid rgba(255, 255, 255, 0.6);
 }
 
-.search-icon {
-  color: #a5adb6;
-  font-size: 28rpx;
-  margin-right: 10rpx;
+.hero-text-area {
+  z-index: 10;
+  margin-top: 60rpx;
+  text-align: center;
 }
 
-.search-placeholder {
-  flex: 1;
-  color: #a5adb6;
-  font-size: 26rpx;
+.hero-title {
+  font-size: 42rpx;
+  font-weight: 800;
+  color: #2c3e50;
+  letter-spacing: 2rpx;
+  text-shadow: 0 4rpx 10rpx rgba(255, 255, 255, 0.9);
 }
 
-.filter-btn {
-  width: 60rpx;
-  height: 60rpx;
-  border-radius: 16rpx;
-  background: #65c79c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8rpx 18rpx rgba(101, 199, 156, 0.24);
-  transform: translateY(-4rpx);
-}
-
-.filter-icon {
-  color: #ffffff;
-  font-size: 28rpx;
-  font-weight: 700;
-}
-
-.tag-scroll {
+.elephant-interaction-area {
+  position: absolute;
+  top: 190rpx;
+  left: 0;
   width: 100%;
-  margin-top: 34rpx;
-  white-space: nowrap;
-}
-
-.tag-row {
-  display: inline-flex;
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
-  gap: 10rpx;
-  padding-right: 8rpx;
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.tag-pill {
-  flex-shrink: 0;
-  padding: 10rpx 18rpx;
-  border-radius: 999rpx;
-  background: #eef1f3;
-  transform: translateY(-4rpx);
+.elephant-interaction-area.hidden {
+  transform: translate(-145rpx, 40rpx) rotate(0deg);
+}
+.elephant-interaction-area.revealed {
+  transform: translate(-60rpx, 0) rotate(0deg);
 }
 
-.tag-text {
+.elephant-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 320rpx;
+  height: 320rpx;
+  animation: float 4s ease-in-out infinite;
+}
+
+.elephant-tooltip {
+  position: absolute;
+  left: 250rpx;
+  top: 78rpx;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.08);
+  border: 1rpx solid rgba(0, 0, 0, 0.04);
+  padding: 16rpx 24rpx;
+  border-radius: 20rpx;
+  z-index: 30;
+  opacity: 0;
+  white-space: nowrap;
+  transform: translateX(18rpx) translateY(8rpx) scale(0.96);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(10px);
+  transform-origin: left center;
+}
+
+.elephant-tooltip.show {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.elephant-tooltip text {
   font-size: 24rpx;
-  color: #4b5563;
+  color: #4a5568;
+  line-height: 1.5;
+  display: block;
 }
+
+.tooltip-arrow {
+  position: absolute;
+  left: -12rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 12rpx solid transparent;
+  border-bottom: 12rpx solid transparent;
+  border-right: 12rpx solid rgba(255, 255, 255, 0.95);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15rpx); }
+}
+
 
 .safety-card {
   width: 100%;
@@ -440,3 +392,7 @@ page {
   font-weight: 700;
   color: #111827;
 }
+
+
+
+
